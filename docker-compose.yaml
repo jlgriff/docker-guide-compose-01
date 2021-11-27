@@ -3,12 +3,14 @@ version: '3.8'
 services:
   mongodb:
     image: 'mongo'
+    container_name: mongodb
     volumes:
       - goals-data:/data/db
     env_file:
       - ./env/mongo.env
   backend:
     build: ./backend
+    container_name: backend
     volumes:
       - logs:/app/logs
       - ./backend:/app # bind mount
@@ -21,6 +23,7 @@ services:
       - mongodb
   frontend:
     build: ./frontend
+    container_name: frontend
     volumes:
       - ./frontend/src:/app/src
     ports:
@@ -37,3 +40,4 @@ volumes:
 # networks are automatically created by docker-compose
 
 # docker-compose up -d
+# add `--build` to docker-compose command to rebuild image
